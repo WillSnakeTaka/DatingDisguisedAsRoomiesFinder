@@ -51,22 +51,34 @@ Here’s an overview of the system design for **Dating Disguised As Roomies Find
 
 This diagram shows the key components involved in matching potential roommates based on user profiles, preferences, and location.
 
-+-------------------+       +-------------------+
-|  User Profile     | <---> |  Preferences/     |
-|  Data (Location,  |       |  Compatibility    |
-|  Budget, Likes)   |       |  Score Calculators|
-+-------------------+       +-------------------+
-        |                           |
-        v                           v
-+-------------------+       +-------------------+
-|  Matchmaking      |       |   Deep Fake AI    |
-|  Algorithm        | <---> |   Profile Image   |
-+-------------------+       +-------------------+
-        |
-        v
-+-------------------+
-|  Roommate Matches |
-+-------------------+
+```mermaid
+erDiagram
+    USERS {
+        int user_id
+        string name
+        string email
+        string password
+        string location
+        float budget
+        string lifestyle
+        boolean pet_preference
+    }
+    ROOMS {
+        int room_id
+        string location
+        float price
+        string amenities
+        string available_from
+    }
+    MATCHES {
+        int match_id
+        int user_id
+        int room_id
+    }
+
+    USERS ||--o| MATCHES : "has"
+    ROOMS ||--o| MATCHES : "listed"
+
 
 
 
@@ -76,32 +88,33 @@ This diagram illustrates the user journey, from signing up to finding a roommate
 
 
 
-+-----------------------+
-|  Sign Up / Login      |
-+-----------------------+
-        |
-        v
-+-----------------------+
-|  Complete Profile     |
-|  (Personal Details)   |
-+-----------------------+
-        |
-        v
-+-----------------------+
-|  Set Preferences      |
-|  (Budget, Lifestyle)  |
-+-----------------------+
-        |
-        v
-+-----------------------+
-|  Swipe Through Matches|
-+-----------------------+
-        |
-        v
-+-----------------------+
-|  Match and Chat       |
-+-----------------------+
+```sql
+CREATE TABLE users (
+    user_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(100),
+    location VARCHAR(100),
+    budget FLOAT,
+    lifestyle VARCHAR(50),
+    pet_preference BOOLEAN
+);
 
+CREATE TABLE rooms (
+    room_id INT PRIMARY KEY,
+    location VARCHAR(100),
+    price FLOAT,
+    amenities TEXT,
+    available_from DATE
+);
+
+CREATE TABLE matches (
+    match_id INT PRIMARY KEY,
+    user_id INT,
+    room_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id)
+);
 
 
 ---
