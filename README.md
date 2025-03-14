@@ -49,35 +49,21 @@ Here’s an overview of the system design for **Dating Disguised As Roomies Find
 
 #### **1. Roommate Matching System Diagram**
 
+# Dating Disguised As Roomies Finder - Design Document
+
+## 1. Roommate Matching System Diagram
+
 This diagram shows the key components involved in matching potential roommates based on user profiles, preferences, and location.
 
 ```mermaid
-erDiagram
-    USERS {
-        int user_id
-        string name
-        string email
-        string password
-        string location
-        float budget
-        string lifestyle
-        boolean pet_preference
-    }
-    ROOMS {
-        int room_id
-        string location
-        float price
-        string amenities
-        string available_from
-    }
-    MATCHES {
-        int match_id
-        int user_id
-        int room_id
-    }
+flowchart LR
+    A[User Profile Data] --> B[Preferences/Compatibility Score Calculators]
+    A --> C[Matchmaking Algorithm]
+    B --> C
+    C --> D[Roommate Matches]
+    C --> E[Deep Fake AI]
+    E --> F[Profile Image]
 
-    USERS ||--o| MATCHES : "has"
-    ROOMS ||--o| MATCHES : "listed"
 
 
 
