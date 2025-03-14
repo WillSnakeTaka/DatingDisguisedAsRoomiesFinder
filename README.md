@@ -45,167 +45,103 @@ The **Deep Fake Roommates** app is designed to cater to individuals transitionin
 
 ### Diagrams
 
-Here’s an overview of the system design for **Dating Disguised As Roomies Finder**:
+Here’s an overview of the system design for Dating Disguised As Roomies Finder:
 
-#### **1. Roommate Matching System Diagram**
-
-# Dating Disguised As Roomies Finder - Design Document
-
-## 1. Roommate Matching System Diagram
+1. Roommate Matching System Diagram
 
 This diagram shows the key components involved in matching potential roommates based on user profiles, preferences, and location.
 
-```mermaid
-flowchart LR
-    A[User Profile Data] --> B[Preferences/Compatibility Score Calculators]
-    A --> C[Matchmaking Algorithm]
-    B --> C
-    C --> D[Roommate Matches]
-    C --> E[Deep Fake AI]
-    E --> F[Profile Image]
++-------------------+ +-------------------+ | User Profile | <---> | Preferences/ | | Data (Location, | | Compatibility | | Budget, Likes) | | Score Calculators| +-------------------+ +-------------------+ | | v v +-------------------+ +-------------------+ | Matchmaking | | Deep Fake AI | | Algorithm | <---> | Profile Image | +-------------------+ +-------------------+ | v +-------------------+ | Roommate Matches | +-------------------+
 
-
-
-
-
-#### **2. User Journey Flow Diagram**
+2. User Journey Flow Diagram
 
 This diagram illustrates the user journey, from signing up to finding a roommate.
 
++-----------------------+ | Sign Up / Login | +-----------------------+ | v +-----------------------+ | Complete Profile | | (Personal Details) | +-----------------------+ | v +-----------------------+ | Set Preferences | | (Budget, Lifestyle) | +-----------------------+ | v +-----------------------+ | Swipe Through Matches| +-----------------------+ | v +-----------------------+ | Match and Chat | +-----------------------+
 
+App Routines
 
-```sql
-CREATE TABLE users (
-    user_id INT PRIMARY KEY,
-    name VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
-    password VARCHAR(100),
-    location VARCHAR(100),
-    budget FLOAT,
-    lifestyle VARCHAR(50),
-    pet_preference BOOLEAN
-);
+1. User Registration Routine
 
-CREATE TABLE rooms (
-    room_id INT PRIMARY KEY,
-    location VARCHAR(100),
-    price FLOAT,
-    amenities TEXT,
-    available_from DATE
-);
+The user will sign up with an email, phone number, or social media account.
+Upon registration, the user is prompted to complete their profile (personal information, budget, preferences, etc.).
+2. Profile Matching Routine
 
-CREATE TABLE matches (
-    match_id INT PRIMARY KEY,
-    user_id INT,
-    room_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (room_id) REFERENCES rooms(room_id)
-);
+A user's preferences (budget, location, personality, etc.) will be analyzed and matched against others in the database.
+The algorithm calculates a compatibility score, which is used to rank roommate suggestions.
+3. Swipe-to-Match Routine
 
+Users can swipe through potential roommates, similar to Tinder’s swiping mechanic.
+If two users swipe right (accept), a match is made, and they can begin chatting.
+4. Messaging Routine
 
----
+Once matched, users can message each other to discuss the living situation, schedule meetings, and further assess compatibility.
+5. Deep Fake Profile Generation Routine
 
-### App Routines
-
-**1. User Registration Routine**
-- The user will sign up with an email, phone number, or social media account.
-- Upon registration, the user is prompted to complete their profile (personal information, budget, preferences, etc.).
-
-**2. Profile Matching Routine**
-- A user's preferences (budget, location, personality, etc.) will be analyzed and matched against others in the database.
-- The algorithm calculates a compatibility score, which is used to rank roommate suggestions.
-
-**3. Swipe-to-Match Routine**
-- Users can swipe through potential roommates, similar to Tinder’s swiping mechanic.
-- If two users swipe right (accept), a match is made, and they can begin chatting.
-
-**4. Messaging Routine**
-- Once matched, users can message each other to discuss the living situation, schedule meetings, and further assess compatibility.
-
-**5. Deep Fake Profile Generation Routine**
-- Users have the option to use a deep fake-generated image (based on AI technology) for their profile picture.
-- The deep fake technology allows for fun, creative avatars or images that represent the user’s personality or interests.
-
----
-
-### Datasets
+Users have the option to use a deep fake-generated image (based on AI technology) for their profile picture.
+The deep fake technology allows for fun, creative avatars or images that represent the user’s personality or interests.
+Datasets
 
 To enable smooth matching and enhance user experience, we require the following datasets:
 
-- **User Profiles**: Data including location, budget, lifestyle preferences, and personal details.
-    - Sample Dataset:
-    ```json
-    {
-      "user_id": 123,
-      "location": "San Francisco",
-      "budget": 1500,
-      "preferences": ["clean", "night owl", "pets"],
-      "personality": "outgoing"
-    }
-    ```
+User Profiles: Data including location, budget, lifestyle preferences, and personal details.
 
-- **Room Listings**: Data about available rooms and apartments (price, location, amenities).
-    - Sample Dataset:
-    ```json
-    {
-      "room_id": 456,
-      "location": "San Francisco",
-      "price": 1200,
-      "amenities": ["wifi", "laundry", "parking"],
-      "available_from": "2023-05-01"
-    }
-    ```
+Sample Dataset:
+{
+  "user_id": 123,
+  "location": "San Francisco",
+  "budget": 1500,
+  "preferences": ["clean", "night owl", "pets"],
+  "personality": "outgoing"
+}
+Room Listings: Data about available rooms and apartments (price, location, amenities).
 
-- **User Matching Preferences**: Preferences for roommate matching (likes, dislikes, lifestyle).
-    - Sample Dataset:
-    ```json
-    {
-      "user_id": 123,
-      "ideal_roommate": {
-        "budget": 1300,
-        "lifestyle": "quiet",
-        "cleanliness": "high",
-        "pet_preference": "none"
-      }
-    }
-    ```
+Sample Dataset:
+{
+  "room_id": 456,
+  "location": "San Francisco",
+  "price": 1200,
+  "amenities": ["wifi", "laundry", "parking"],
+  "available_from": "2023-05-01"
+}
+User Matching Preferences: Preferences for roommate matching (likes, dislikes, lifestyle).
 
-- **Swipe Data**: Tracks swipes (right/left) for users to help calculate compatibility scores.
-    - Sample Dataset:
-    ```json
-    {
-      "user_id": 123,
-      "swiped_right": [124, 125, 126],
-      "swiped_left": [127, 128]
-    }
-    ```
+Sample Dataset:
+{
+  "user_id": 123,
+  "ideal_roommate": {
+    "budget": 1300,
+    "lifestyle": "quiet",
+    "cleanliness": "high",
+    "pet_preference": "none"
+  }
+}
+Swipe Data: Tracks swipes (right/left) for users to help calculate compatibility scores.
 
----
-
-## Roommate Matching Logic
+Sample Dataset:
+{
+  "user_id": 123,
+  "swiped_right": [124, 125, 126],
+  "swiped_left": [127, 128]
+}
+Roommate Matching Logic
 
 The roommate matching logic works through a scoring system based on user preferences and profile data.
 
-### **1. Compatibility Scoring**
-- Compatibility is based on shared attributes such as cleanliness, lifestyle, budget, and pet preferences.
-- Each attribute is assigned a weight, and the system calculates an overall compatibility score between two users.
+1. Compatibility Scoring
 
-### **2. Deep Fake Profile Matching**
-- The deep fake profile image can be analyzed using facial recognition or aesthetic preferences to match users based on appearance or style preferences.
+Compatibility is based on shared attributes such as cleanliness, lifestyle, budget, and pet preferences.
+Each attribute is assigned a weight, and the system calculates an overall compatibility score between two users.
+2. Deep Fake Profile Matching
 
----
-
-## Next Steps
+The deep fake profile image can be analyzed using facial recognition or aesthetic preferences to match users based on appearance or style preferences.
+Next Steps
 
 To turn this concept into a fully functioning app, the following tasks are next:
 
-1. **Prototype Development**: Start by building the front-end prototype, which includes the profile page, swipe functionality, and messaging system.
-2. **Algorithm Implementation**: Implement the roommate matching algorithm, including the scoring system and profile data parsing.
-3. **AI Integration**: Integrate deep fake technology to allow users to generate or upload creative profile images.
-4. **Testing**: Conduct user testing to refine the app's features and improve the matching process.
-5. **Deployment**: Deploy the app on mobile platforms (iOS/Android) and web.
-
----
-
-Feel free to copy the structure above, modify the data, or add specific sections as needed. This document should help guide the development of your **Dating Disguised As Roomies Finder** app. Let me know if you need further adjustments!
-
+Prototype Development: Start by building the front-end prototype, which includes the profile page, swipe functionality, and messaging system.
+Algorithm Implementation: Implement the roommate matching algorithm, including the scoring system and profile data parsing.
+AI Integration: Integrate deep fake technology to allow users to generate or upload creative profile images.
+Testing: Conduct user testing to refine the app's features and improve the matching process.
+Deployment: Deploy the app on mobile platforms (iOS/Android) and web.
+Feel free to copy the structure above, modify the data, or add specific sections as needed. This document should help guide the development of your Dating Disguised As Roomies Finder app. Let me know if you need further adjustments!
