@@ -1,12 +1,36 @@
-import React from 'react'
+// components/Hero.js
 
-const Hero = () => {
-    return (
-        <div className=''>
-            <div className="">Hero Image</div>
-            <div className="">Description</div>
-        </div>
-    )
+import React from 'react';
+import Image from 'next/image';
+
+interface HeroProps {
+    imageUrl: string;
+    imageAlt: string;
+    heading: string;
 }
 
-export default Hero
+const Hero = (props: HeroProps) => {
+    return (
+        <section className="relative w-full h-[400px] sm:h-[600px]">
+            {/* Hero Image */}
+            <Image
+                src={props.imageUrl}
+                alt={props.imageAlt}
+                fill
+                style={{ objectFit: 'cover' }}
+            />
+
+            {/* Hero Text/Description */}
+            <div className='container flex justify-center items-center absolute inset-0 text-white'>
+
+                <div className=''>
+
+                </div>
+            </div>
+
+
+        </section>
+    );
+};
+
+export default Hero;

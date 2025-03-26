@@ -49,6 +49,7 @@ const workSans = localFont({
 }
 )
 
+
 export const metadata: Metadata = {
     title: "RooMe",
     description: "A place to find roommates or look for potential listings",

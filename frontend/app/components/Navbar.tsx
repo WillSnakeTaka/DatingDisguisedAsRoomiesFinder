@@ -1,10 +1,14 @@
+"use client";
+
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-
-import { SignedIn, UserButton, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs'
+import dynamic from 'next/dynamic';
+import { SignedIn, UserButton, SignedOut, SignInButton, SignUpButton, useClerk, useUser } from '@clerk/nextjs'
 
 const Navbar = () => {
+    const { user } = useUser();
+
     return (
         <header className="bg-white shadow-md py-4">
             <nav className="mx-auto flex justify-between items-center px-5 text-gray-800">
@@ -18,12 +22,21 @@ const Navbar = () => {
 
                 {/* Navigation Links */}
                 <div className="flex gap-6 items-center ">
-                    <Link href="/listing/create" className="hover:text-blue-500">
-                        Create Listing
-                    </Link>
+
 
                     {/* Conditionally render based on authentication state */}
                     <SignedIn>
+                        <Link href="/listing/create" className="hover:text-blue-500">
+                            Create Listing
+                        </Link>
+
+                        {user && (
+                            <Link href={`/listing/${user.id}`} className="hover:text-blue-500">
+                                My Listings
+                            </Link>
+                        )
+                        }
+
                         <UserButton />
                     </SignedIn>
 
