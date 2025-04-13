@@ -1,9 +1,7 @@
-"use client";
+'use client'
 
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import dynamic from 'next/dynamic';
 import { SignedIn, UserButton, SignedOut, SignInButton, SignUpButton, useClerk, useUser } from '@clerk/nextjs'
 
 const Navbar = () => {
@@ -22,16 +20,18 @@ const Navbar = () => {
 
                 {/* Navigation Links */}
                 <div className="flex gap-6 items-center ">
-
+                    <Link href="/listings/" className="hover:text-blue-500">
+                        Checkout Listings
+                    </Link>
 
                     {/* Conditionally render based on authentication state */}
                     <SignedIn>
-                        <Link href="/listing/create" className="hover:text-blue-500">
-                            Create Listing
+                        <Link href="/listings/create" className="hover:text-blue-500">
+                            Create Listings
                         </Link>
 
                         {user && (
-                            <Link href={`/listing/${user.id}`} className="hover:text-blue-500">
+                            <Link href={`/listings/${user.id}`} className="hover:text-blue-500">
                                 My Listings
                             </Link>
                         )
@@ -48,7 +48,7 @@ const Navbar = () => {
                                 </a>
                             </SignInButton>
                             <SignUpButton>
-                                <a className="  px-4 py-2 rounded-lg hover:text-blue-500 hover:cursor-pointer ">
+                                <a className=" px-4 py-2 rounded-lg hover:text-blue-500 hover:cursor-pointer ">
                                     Sign Up
                                 </a>
                             </SignUpButton>
