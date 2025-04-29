@@ -1,10 +1,11 @@
 import React from 'react'
+import CreateListingForm from '@/app/components/listings/CreateListingForm'
 
 const CreatePage = () => {
     return (
         <div>
             <div>Create Listing Page</div>
-            <div>Create Listing Form</div>
+            <CreateListingForm />
         </div>
     )
 }

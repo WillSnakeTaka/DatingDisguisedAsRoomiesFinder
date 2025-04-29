@@ -10,7 +10,8 @@ export default function OnboardForm({ todos }: { todos: Todo[] }) {
             <ul>
                 {todos.map((todo) => (
                     <li key={todo.id}>{todo.title}</li>
-                ))}
+                ))
+                }
             </ul>
         </div>
     );
