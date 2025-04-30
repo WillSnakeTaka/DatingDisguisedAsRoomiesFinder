@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { postListing, Listing } from '@/app/actions/listings/postListing';
+import { postListing, ListingInput } from '@/app/actions/listings/postListing';
 
 /**
  * @fileoverview This file contains the page component that serves as the main entry point for the listing page.
@@ -22,11 +22,13 @@ const testListing = {
     category: "apartment",
     is_active: true,
     is_featured: false,
+    clerkId: "clerk_1234567890",
 };
 
 const page = () => {
 
-    const [response, setResponse] = useState<Listing[] | null>(null);
+    const [response, setResponse] = useState<ListingInput | null>(null);
+    const [featuredListing, setFeaturedListing] = useState<ListingInput | null>(null);
 
     const handlePostListing = async () => {
         try {
@@ -36,6 +38,7 @@ const page = () => {
             console.error("Failed to post listing:", err);
         }
     };
+
     return (
         <div className='flex flex-col items-center justify-center h-screen'>
             <h1 className=''> We are at Listing Page</h1>

@@ -1,9 +1,6 @@
-import Image from "next/image";
-import { SearchParams } from 'next/dist/server/request/search-params';
 import Hero from "../components/homePage/Hero";
 import About from "../components/About";
 import Footer from "../components/Footer";
-import { cookies } from 'next/headers'
 
 export default async function HomePage({ searchParams }: { searchParams: Promise<{ query?: string }> }) {
 

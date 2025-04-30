@@ -1,5 +1,6 @@
 // utils/prisma.ts
-import { PrismaClient } from '@prisma/client';
+// Singleton Prisma Client instance
+import { PrismaClient } from "@prisma/client";
 
 // Single instance of Prisma Client for reuse
 const prisma = new PrismaClient();

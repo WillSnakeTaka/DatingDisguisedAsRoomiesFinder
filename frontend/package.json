@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gate": "ngrok http --url=grackle-talented-only.ngrok-free.app 3000"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.14.3",
