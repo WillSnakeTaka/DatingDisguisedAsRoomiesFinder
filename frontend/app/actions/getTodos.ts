@@ -1,6 +1,7 @@
 // app/actions/getTodos.ts
 /**
- * @fileoverview This file contains the getTodos function that fetches todos from Supabase.
+ * @fileoverview This is an EXAMPLE of a server action fetching data from Supabase.
+ * This file contains the getTodos function that fetches todos from Supabase.
  * It uses the Supabase client to make a request to the 'todos' table and returns the data.
  * It is used in the OnboardPage component to fetch todos and pass them to the OnboardForm component.
  */

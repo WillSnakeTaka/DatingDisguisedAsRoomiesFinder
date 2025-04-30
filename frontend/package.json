@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gate": "ngrok http --url=grackle-talented-only.ngrok-free.app 3000",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.14.3",
@@ -16,6 +18,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "lucide-react": "^0.483.0",
     "next": "15.2.3",
+    "ngrok": "^5.0.0-beta.2",
     "prisma": "^6.6.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

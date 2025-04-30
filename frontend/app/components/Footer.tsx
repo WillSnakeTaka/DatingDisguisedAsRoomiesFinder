@@ -1,5 +1,6 @@
-import React from 'react'
-import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';  // Importing icons
+import React from 'react';
+import Link from 'next/link';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
     return (
@@ -8,17 +9,35 @@ const Footer = () => {
                 {/* About Us Section */}
                 <div className="text-lg font-semibold">
                     <h2 className="text-xl mb-2 font-bold">About Us</h2>
-                    <p className="text-gray-400 text-sm">We are a team dedicated to providing the best services and solutions. We strive to exceed expectations.</p>
+                    <p className="text-gray-400 text-sm">
+                        We are a team dedicated to providing the best services and solutions. We strive to exceed expectations.
+                    </p>
                 </div>
 
                 {/* Quick Links Section */}
                 <div className="text-lg font-semibold">
                     <h2 className="text-xl mb-2 font-bold">Quick Links</h2>
                     <ul className="space-y-2">
-                        <li><a href="/" className="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="/" className="text-gray-400 hover:text-white transition duration-300">Services</a></li>
-                        <li><a href="/" className="text-gray-400 hover:text-white transition duration-300">Contact Us</a></li>
-                        <li><a href="/" className="text-gray-400 hover:text-white transition duration-300">About</a></li>
+                        <li>
+                            <Link href="/" legacyBehavior>
+                                <a className="text-gray-400 hover:text-white transition duration-300">Home</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/services" legacyBehavior>
+                                <a className="text-gray-400 hover:text-white transition duration-300">Services</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/contact" legacyBehavior>
+                                <a className="text-gray-400 hover:text-white transition duration-300">Contact Us</a>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/about" legacyBehavior>
+                                <a className="text-gray-400 hover:text-white transition duration-300">About</a>
+                            </Link>
+                        </li>
                     </ul>
                 </div>
 
@@ -26,9 +45,36 @@ const Footer = () => {
                 <div className="text-lg font-semibold">
                     <h2 className="text-xl mb-2 font-bold">Follow Us</h2>
                     <ul className="flex space-x-6">
-                        <li><a href="https://facebook.com" className="text-gray-400 hover:text-blue-600 transition duration-300"><FaFacebook size={28} /></a></li>
-                        <li><a href="https://twitter.com" className="text-gray-400 hover:text-blue-400 transition duration-300"><FaTwitter size={28} /></a></li>
-                        <li><a href="https://instagram.com" className="text-gray-400 hover:text-pink-600 transition duration-300"><FaInstagram size={28} /></a></li>
+                        <li>
+                            <a
+                                href="https://facebook.com"
+                                className="text-gray-400 hover:text-blue-600 transition duration-300"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <FaFacebook size={28} />
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://twitter.com"
+                                className="text-gray-400 hover:text-blue-400 transition duration-300"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <FaTwitter size={28} />
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://instagram.com"
+                                className="text-gray-400 hover:text-pink-600 transition duration-300"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <FaInstagram size={28} />
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -38,6 +84,6 @@ const Footer = () => {
             </div>
         </footer>
     );
-}
+};
 
 export default Footer;

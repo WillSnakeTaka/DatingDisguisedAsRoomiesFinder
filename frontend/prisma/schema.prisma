@@ -1,15 +1,88 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
+  //output   = "./generated/@prisma/client"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  clerkId   String    @unique
+  email     String    @unique
+  username  String?
+  firstName String?
+  lastName  String?
+  phone     String?
+  createdAt DateTime  @default(now())
+
+  
+  listings  Listing[]
+  posts     Post[]
+  UserHobby UserHobby[]
+}
+
+model Hobby {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  category    String?
+  description String?
+  iconUrl     String?
+
+
+  // Join table for many-to-many relationship with User, Listing
+  UserHobby UserHobby[]
+  ListingHobby ListingHobby[]
+}
+
+model UserHobby {
+  userId  Int
+  hobbyId Int
+  addedAt DateTime @default(now())
+
+  user    User  @relation(fields: [userId], references: [id])
+  hobby   Hobby @relation(fields: [hobbyId], references: [id])
+
+  @@id([userId, hobbyId])
+}
+
+model Listing {
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String
+  interestPool String[] 
+  price        Int
+  image_url    String?
+  location     String?
+  category     String?
+  is_active    Boolean
+  is_featured  Boolean
+  createdAt    DateTime @default(now())
+  clerkId      String
+  user         User     @relation(fields: [clerkId], references: [clerkId])
+
+  ListingHobby ListingHobby[]
+}
+
+model ListingHobby {
+  listingId Int
+  hobbyId   Int
+
+  listing   Listing @relation(fields: [listingId], references: [id])
+  hobby     Hobby   @relation(fields: [hobbyId], references: [id])
+
+  @@id([listingId, hobbyId])
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  clerkId   String
+  user      User     @relation(fields: [clerkId], references: [clerkId])
 }
