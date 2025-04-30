@@ -2,12 +2,12 @@ import { auth } from "@clerk/nextjs/server";
 
 interface PageProps {
     params: {
-        id: string; // The `id` param from the dynamic URL
+        id: string;
     };
 }
 
 export default async function UserPage({ params }: PageProps) {
-    const { userId } = await auth(); // Get the current logged-in user's ID from Clerk
+    const { userId } = await auth(); // Await to get userId from Clerk
 
     if (!userId) {
         return <div>Not signed in</div>;
