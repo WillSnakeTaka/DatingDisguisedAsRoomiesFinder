@@ -3,7 +3,8 @@ const Page = () => {
 
     return (
         <div>
-            User&apos;s listings page
+            <h1 className=''> We are at User&apos;s Listings Page</h1>
+
         </div>
     )
 }

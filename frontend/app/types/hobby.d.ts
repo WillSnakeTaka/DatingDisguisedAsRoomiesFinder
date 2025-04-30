@@ -5,7 +5,7 @@
 //  description String ?
 //  iconUrl     String ?
 
-export interface hobby {
+export type hobby = {
     id: number;
     name: string;
     category?: string;

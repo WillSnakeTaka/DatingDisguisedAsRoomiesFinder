@@ -20,7 +20,6 @@ model User {
   createdAt DateTime  @default(now())
 
   
-  hobbies   Hobby[]  @relation("UserHobbies")
   listings  Listing[]
   posts     Post[]
   UserHobby UserHobby[]
@@ -33,9 +32,10 @@ model Hobby {
   description String?
   iconUrl     String?
 
-  users       User[]   @relation("UserHobbies")
 
+  // Join table for many-to-many relationship with User, Listing
   UserHobby UserHobby[]
+  ListingHobby ListingHobby[]
 }
 
 model UserHobby {
@@ -53,7 +53,7 @@ model Listing {
   id           Int      @id @default(autoincrement())
   title        String
   description  String
-  interestPool String[]
+  interestPool String[] 
   price        Int
   image_url    String?
   location     String?
@@ -63,6 +63,18 @@ model Listing {
   createdAt    DateTime @default(now())
   clerkId      String
   user         User     @relation(fields: [clerkId], references: [clerkId])
+
+  ListingHobby ListingHobby[]
+}
+
+model ListingHobby {
+  listingId Int
+  hobbyId   Int
+
+  listing   Listing @relation(fields: [listingId], references: [id])
+  hobby     Hobby   @relation(fields: [hobbyId], references: [id])
+
+  @@id([listingId, hobbyId])
 }
 
 model Post {

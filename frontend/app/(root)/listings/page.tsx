@@ -1,6 +1,7 @@
 "use client"
-import React, { useState } from 'react'
-import { postListing, ListingInput } from '@/app/actions/listings/postListing';
+import React, { useState, useEffect } from 'react'
+import { getListings } from '@/app/actions/listings/getListings';
+import { Listing } from '@/app/types/listing';
 
 /**
  * @fileoverview This file contains the page component that serves as the main entry point for the listing page.
@@ -12,52 +13,42 @@ import { postListing, ListingInput } from '@/app/actions/listings/postListing';
  * the listing should be active and featured
  */
 
-const testListing = {
-    title: "Cozy Room in Downtown",
-    description: "Looking for a clean and quiet roommate. All utilities included.",
-    interestPool: ["music", "cooking", "hiking"],
-    price: 850,
-    image_url: "https://example.com/room.jpg",
-    location: "Downtown, Cityville",
-    category: "apartment",
-    is_active: true,
-    is_featured: false,
-    clerkId: "clerk_1234567890",
-};
-
 const page = () => {
+    const [listingData, setListingData] = useState<Listing[] | null>(null);
 
-    const [response, setResponse] = useState<ListingInput | null>(null);
-
-    const handlePostListing = async () => {
-        try {
-            const result = await postListing(testListing);
-            setResponse(result);
-        } catch (err) {
-            console.error("Failed to post listing:", err);
-        }
-    };
-
-    // Fetch the listing data from the server and display it to the user
+    // TODO: Implement fetchListingData to retrieve listing from the server
     const fetchListingData = async () => {
         try {
-
+            const data = await getListings();
+            setListingData(data);
         } catch (error) {
-
+            console.error('Error fetching listing data:', error);
         }
     }
+
+    useEffect(() => {
+        fetchListingData();
+    }, []);
 
     return (
         <div className='flex flex-col items-center justify-center h-screen'>
             <h1 className=''> We are at Listing Page</h1>
-            <button className='bg-blue-500' onClick={handlePostListing}>Create New Listing</button>
 
-            <button className='bg-blue-500' onClick={handlePostListing}>Post Test Listing</button>
-
-            {response && (
-                <pre>{JSON.stringify(response, null, 2)}</pre>
-            )}
-
+            <div className='flex flex-col items-center justify-center'>
+                {listingData ? (
+                    listingData.map((listing) => (
+                        <div key={listing.id} className='border p-4 m-2'>
+                            <h2>{listing.title}</h2>
+                            <p>{listing.description}</p>
+                            <p>Price: {listing.price}</p>
+                            <p>Location: {listing.location}</p>
+                            <p>Category: {listing.category}</p>
+                        </div>
+                    ))
+                ) : (
+                    <p>No listings available</p>
+                )}
+            </div>
         </div>
     )
 }
