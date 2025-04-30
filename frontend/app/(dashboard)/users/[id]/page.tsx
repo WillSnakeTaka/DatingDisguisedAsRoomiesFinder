@@ -5,12 +5,15 @@ interface PageProps {
     params: Promise<{
         id: string; // The `id` param from the dynamic URL
     }>;
-    searchParams: { [key: string]: string | string[] | undefined }; // The query parameters
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>; // The query parameters
 }
 
-export default async function UserPage({ params }: PageProps) {
+export default async function UserPage({ params, searchParams }: PageProps) {
     // Await the params to get the id
     const { id: profileId } = await params;
+
+    // Await searchParams if needed
+    // const searchParamsData = await searchParams;
 
     // Await to get the current logged-in user's ID from Clerk
     const { userId } = await auth();
