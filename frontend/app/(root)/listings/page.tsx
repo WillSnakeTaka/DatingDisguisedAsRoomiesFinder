@@ -28,7 +28,6 @@ const testListing = {
 const page = () => {
 
     const [response, setResponse] = useState<ListingInput | null>(null);
-    const [featuredListing, setFeaturedListing] = useState<ListingInput | null>(null);
 
     const handlePostListing = async () => {
         try {
@@ -39,9 +38,20 @@ const page = () => {
         }
     };
 
+    // Fetch the listing data from the server and display it to the user
+    const fetchListingData = async () => {
+        try {
+
+        } catch (error) {
+
+        }
+    }
+
     return (
         <div className='flex flex-col items-center justify-center h-screen'>
             <h1 className=''> We are at Listing Page</h1>
+            <button className='bg-blue-500' onClick={handlePostListing}>Create New Listing</button>
+
             <button className='bg-blue-500' onClick={handlePostListing}>Post Test Listing</button>
 
             {response && (

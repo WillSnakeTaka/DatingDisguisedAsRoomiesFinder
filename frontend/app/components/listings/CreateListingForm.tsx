@@ -1,6 +1,7 @@
+"use client"
 import React from 'react'
-import Form from 'next/form'
-import { postListing, Listing } from '@/app/actions/listings/postListing'
+import { postListing } from '@/app/actions/listings/postListing'
+
 
 /**
  * @fileoverview This file contains the CreateListingForm component that serves as the main entry point for the listing creation form.
@@ -14,34 +15,19 @@ const CreateListingForm = () => {
         event.preventDefault();
         const formData = new FormData(event.target as HTMLFormElement);
 
-        const data = {
-            title: formData.get('title') as string,
-            description: formData.get('description') as string,
-            price: parseFloat(formData.get('price') as string),
-            url: formData.get('url') as string,
-            interestPool: [] as [], // list of users
-            image_url: '', // get the image_url from the url
-            location: '', // implement a dropdown for locations
-            category: '',
-            is_active: true,
-            is_featured: false,
-        };
+        // A listing object to be sent to the server
+        // should contain the following fields:
+        // interestPool : [] // list of users
+        // hobbyPool : [] // list of unique hobbies derived from the interestPool
 
-        // Call the postListing action to create a new listing
-        postListing(data)
-            .then(response => {
-                console.log('Listing created successfully:', response);
-            })
-            .catch(error => {
-                console.error('Error creating listing:', error);
-            });
+
 
     }
 
     return (
         <div>
             <h1>Create Listing Form</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="title">Title:</label>
                     <input type="text" id="title" name="title" required />

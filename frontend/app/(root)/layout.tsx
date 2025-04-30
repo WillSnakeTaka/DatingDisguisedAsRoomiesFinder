@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 
 // Import components

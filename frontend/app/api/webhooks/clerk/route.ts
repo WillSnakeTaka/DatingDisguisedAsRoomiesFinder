@@ -82,7 +82,7 @@ export async function PUT(req: NextRequest) {
 
 
 // GET: (Example) Return all users
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         const users = await prisma.user.findMany();
         return NextResponse.json(users, { status: 200 });
