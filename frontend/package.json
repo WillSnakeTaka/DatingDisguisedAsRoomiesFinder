@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gate": "ngrok http --url=grackle-talented-only.ngrok-free.app 3000"
+    "gate": "ngrok http --url=grackle-talented-only.ngrok-free.app 3000",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.14.3",
