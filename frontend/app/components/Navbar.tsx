@@ -1,68 +1,75 @@
-'use client'
-import React from 'react'
-import Link from 'next/link'
-import { SignedIn, UserButton, SignedOut, SignInButton, SignUpButton, useUser } from '@clerk/nextjs'
+'use client';
 
-const Navbar = () => {
-    const { user } = useUser();
+import Link from 'next/link';
+import { useAuth } from '@clerk/nextjs';
+import { UserButton } from '@clerk/nextjs';
+
+export default function Navbar() {
+    const { userId } = useAuth();
 
     return (
-        <header className="bg-white shadow-md py-4">
-            <nav className="mx-auto flex justify-between items-center px-5 text-gray-800">
-                {/* Logo or Branding */}
-
-                <div className="">
-                    <Link href="/" className="text-xl font-bold">
-                        RooMe
-                    </Link>
-                </div>
-
-                {/* Navigation Links */}
-                <div className="flex gap-6 items-center ">
-                    <Link href="/listings/" className="hover:text-blue-500">
-                        Checkout Listings
-                    </Link>
-
-                    {/* Conditionally render based on authentication state */}
-                    <SignedIn>
-
-                        <Link href="/match" className="hover:text-blue-500">
-                            Find a Match
-                        </Link>
-
-                        <Link href="/listings/create" className="hover:text-blue-500">
-                            Create Listings
-                        </Link>
-
-                        {user && (
-                            <Link href={`/listings/${user.id}`} className="hover:text-blue-500">
-                                My Listings
+        <nav className="bg-white shadow-md">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16">
+                    <div className="flex">
+                        <div className="flex-shrink-0 flex items-center">
+                            <Link href="/" className="text-xl font-bold text-blue-600">
+                                RooMe
                             </Link>
-                        )
-                        }
-
-                        <UserButton />
-                    </SignedIn>
-
-                    <SignedOut>
-                        <div className="flex gap-3">
-                            <SignInButton>
-                                <a className=" px-4 py-2 rounded-lg hover:text-blue-500 hover:cursor-pointer">
-                                    Sign In
-                                </a>
-                            </SignInButton>
-
-                            <SignUpButton>
-                                <a className=" px-4 py-2 rounded-lg hover:text-blue-500 hover:cursor-pointer ">
-                                    Sign Up
-                                </a>
-                            </SignUpButton>
                         </div>
-                    </SignedOut>
+                        <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                            <Link
+                                href="/listings"
+                                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                            >
+                                Listings
+                            </Link>
+                            <Link
+                                href="/hobbies"
+                                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                            >
+                                Hobbies
+                            </Link>
+                            {userId && (
+                                <Link
+                                    href="/my-listings"
+                                    className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                                >
+                                    My Listings
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+                    <div className="flex items-center">
+                        {userId ? (
+                            <div className="flex items-center space-x-4">
+                                <Link
+                                    href="/listings/new"
+                                    className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
+                                >
+                                    Create Listing
+                                </Link>
+                                <UserButton afterSignOutUrl="/" />
+                            </div>
+                        ) : (
+                            <div className="flex items-center space-x-4">
+                                <Link
+                                    href="/sign-in"
+                                    className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                                >
+                                    Sign In
+                                </Link>
+                                <Link
+                                    href="/sign-up"
+                                    className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
+                                >
+                                    Sign Up
+                                </Link>
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </nav>
-        </header>
-    )
-}
-
-export default Navbar
+            </div>
+        </nav>
+    );
+} 
