@@ -32,6 +32,9 @@ export async function POST(req: NextRequest) {
                 lastName,
                 username,
                 phone,
+                date_of_birth: new Date(),
+                min_budget: 0,             // placeholder
+                max_budget: 1000           // placeholder
             },
         });
 
