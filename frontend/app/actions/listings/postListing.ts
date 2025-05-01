@@ -1,49 +1,35 @@
-'use server';
-import { prisma } from '@/utils/prisma/client';
-import { Listing as PrismaListing } from '@prisma/client';
+import { prisma } from "@/utils/prisma/client";
 
-export interface ListingInput {
-    title: string;
-    description: string;
-    interestPool: string[]; // Interests like "music", "cooking", etc.
-    price: number; // price for the listing
-    image_url: string | null; // image_url for the listing
-    location: string | null; // location for the listing
-    category: string | null; // type of listing like apartment, house, etc.
-    is_active: boolean; // if the listing is active or not
-    is_featured: boolean; // if the listing is featured or not
-    clerkId: string, // Clerk ID, references User.clerkId
-}
+// Assuming you have hobby IDs that you want to associate with the listing
+export async function postListing(listingData: any) {
+    const { title, description, price, image_url, location, category, is_active, is_featured, clerkId, hobbyIds } = listingData;
 
-export async function postListing(listingData: ListingInput): Promise<PrismaListing | null> {
     try {
-        const { clerkId, ...rest } = listingData;
-
-        // Check if user exists
-        const user = await prisma.user.findUnique({
-            where: { clerkId: clerkId },
-        });
-
-        // If the user doesn't exist, return null or handle accordingly
-        if (!user) {
-            console.error('User with the provided clerkId does not exist');
-            return null;
-        }
-
-        // Proceed with creating the listing since the user exists
+        // Create the listing first
         const newListing = await prisma.listing.create({
             data: {
-                ...rest,
-                clerkId: clerkId, // Since the listing references the clerkId, directly set it here
+                title,
+                description,
+                price,
+                image_url,
+                location,
+                category,
+                is_active,
+                is_featured,
+                creator_clerkId: clerkId,
+                // Create relationships for hobbies
+                ListingHobby: {
+                    create: hobbyIds.map((hobbyId: number) => ({
+                        hobbyId,
+                    })),
+                },
             },
         });
 
-        console.log('New listing created:', newListing);
+        console.log("New listing created:", newListing);
         return newListing;
     } catch (error) {
-        console.error('Error creating listing:', error);
-        return null;
-    } finally {
-        await prisma.$disconnect();
+        console.error("Error creating listing:", error);
+        throw error;
     }
 }

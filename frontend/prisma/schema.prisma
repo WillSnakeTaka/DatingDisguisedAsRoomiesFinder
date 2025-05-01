@@ -18,7 +18,18 @@ model User {
   lastName  String?
   phone     String?
 
+
+  // Optional fields to be filled in by the user
+  gender      String?
   date_of_birth DateTime?
+  bio         String?
+
+
+  // Optional fields for user preferences
+  location    String?
+  cleanliness Int?
+  smoking     Int?
+  pets        Int?
   min_budget   Int?
   max_budget   Int?
   createdAt DateTime  @default(now())
@@ -27,6 +38,8 @@ model User {
   listings  Listing[]
   posts     Post[]
   UserHobby UserHobby[]
+  interestedListings Listing[] @relation("ListingInterestPool")
+
 }
 
 model Hobby {
@@ -57,7 +70,6 @@ model Listing {
   id           Int      @id @default(autoincrement())
   title        String
   description  String
-  interestPool String[] 
   price        Int
   image_url    String?
   location     String?
@@ -65,9 +77,11 @@ model Listing {
   is_active    Boolean
   is_featured  Boolean
   createdAt    DateTime @default(now())
-  clerkId      String
-  user         User     @relation(fields: [clerkId], references: [clerkId])
 
+  creator_clerkId      String
+  user         User     @relation(fields: [creator_clerkId], references: [clerkId])
+
+  interestPool   User[]  @relation("ListingInterestPool")  
   ListingHobby ListingHobby[]
 }
 

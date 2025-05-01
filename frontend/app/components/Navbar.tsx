@@ -23,12 +23,13 @@ const Navbar = () => {
                         Checkout Listings
                     </Link>
 
-                    <Link href="/match" className="hover:text-blue-500">
-                        Find a Match
-                    </Link>
-
                     {/* Conditionally render based on authentication state */}
                     <SignedIn>
+
+                        <Link href="/match" className="hover:text-blue-500">
+                            Find a Match
+                        </Link>
+
                         <Link href="/listings/create" className="hover:text-blue-500">
                             Create Listings
                         </Link>
@@ -50,6 +51,7 @@ const Navbar = () => {
                                     Sign In
                                 </a>
                             </SignInButton>
+
                             <SignUpButton>
                                 <a className=" px-4 py-2 rounded-lg hover:text-blue-500 hover:cursor-pointer ">
                                     Sign Up

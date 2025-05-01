@@ -3,12 +3,35 @@ import { prisma } from '@/utils/prisma/client';
 
 // Handles Clerk webhook events
 // Handles Clerk "user.created" webhook event
+
+const checkExistingUser = async (clerkId: string) => {
+
+    // Check if the user already exists
+    const existingUser = await prisma.user.findUnique({
+        where: { clerkId },
+    });
+
+    return existingUser;
+}
+
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const data = body.data;
 
-        if (data.type !== 'user.created') return NextResponse.json({ error: 'Invalid event type' }, { status: 400 });
+        // Check if the user already exists
+        checkExistingUser(data.id).then(existingUser => {
+            if (existingUser) {
+                // If user already exists, you can return early or update the user.
+                console.log("User already exists:", data.id);
+                return new Response(JSON.stringify({ message: "User already exists" }), { status: 400 });
+            }
+        })
+
+
+        console.log('Received webhook data:', data);
+
+        //if (data.type !== 'user.created') return NextResponse.json({ error: 'Invalid event type' }, { status: 400 });
 
         // Destructure required values safely
         const clerkId = data.id;
@@ -33,8 +56,8 @@ export async function POST(req: NextRequest) {
                 username,
                 phone,
                 date_of_birth: new Date(),
-                min_budget: 0,             // placeholder
-                max_budget: 1000           // placeholder
+                min_budget: 0,             // placeholder value
+                max_budget: 1000           // placeholder value
             },
         });
 
