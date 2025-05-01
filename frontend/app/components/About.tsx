@@ -22,7 +22,7 @@ const About = (props: AboutProps) => {
                         to live with.
                     </p>
                     <p className="text-gray-600 text-lg mb-4">
-                        Whether you're a student, remote worker, or just relocating to a new city, RooMe lets
+                        Whether you&apos;re a student, remote worker, or just relocating to a new city, RooMe lets
                         you browse curated listings, filter by hobbies and lifestyle, and discover potential
                         flatmates that actually vibe with you.
                     </p>
