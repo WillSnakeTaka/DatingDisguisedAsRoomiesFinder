@@ -23,6 +23,10 @@ const Navbar = () => {
                         Checkout Listings
                     </Link>
 
+                    <Link href="/match" className="hover:text-blue-500">
+                        Find a Match
+                    </Link>
+
                     {/* Conditionally render based on authentication state */}
                     <SignedIn>
                         <Link href="/listings/create" className="hover:text-blue-500">

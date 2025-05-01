@@ -17,6 +17,10 @@ model User {
   firstName String?
   lastName  String?
   phone     String?
+
+  date_of_birth DateTime
+  min_budget   Int
+  max_budget   Int
   createdAt DateTime  @default(now())
 
   

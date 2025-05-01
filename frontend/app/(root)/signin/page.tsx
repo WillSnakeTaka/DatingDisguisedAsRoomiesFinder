@@ -1,12 +1,13 @@
 import React from 'react'
 import { SignIn } from '@clerk/nextjs'
 
-const page = () => {
+
+const SignInPage = () => {
     return (
         <div>
-            <SignIn />
+            <SignIn afterSignInUrl="/onboardform" />
         </div>
     )
 }
 
-export default page
+export default SignInPage

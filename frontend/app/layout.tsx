@@ -62,7 +62,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <ClerkProvider>
+        <ClerkProvider
+            afterSignOutUrl=""
+            signUpForceRedirectUrl=""
+            signInUrl=""
+            signUpUrl=""
+        >
 
             <html lang="en">
                 <body
