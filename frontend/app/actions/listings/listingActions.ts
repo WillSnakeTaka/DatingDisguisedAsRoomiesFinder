@@ -90,8 +90,7 @@ export async function getListingById(id: number) {
     }
 }
 
-// Update a listing
-export async function updateListing(id: number, listingData: {
+type UpdateListingData = {
     title?: string;
     description?: string;
     price?: number;
@@ -101,19 +100,20 @@ export async function updateListing(id: number, listingData: {
     is_active?: boolean;
     is_featured?: boolean;
     hobbyIds?: number[];
-}) {
+};
+
+export async function updateListing(id: number, listingData: UpdateListingData) {
     try {
-        const updateData: any = { ...listingData };
-        delete updateData.hobbyIds;
+        const { hobbyIds, ...updateData } = listingData;
 
         const updatedListing = await prisma.listing.update({
             where: { id },
             data: {
                 ...updateData,
-                ...(listingData.hobbyIds && {
+                ...(hobbyIds && {
                     ListingHobby: {
                         deleteMany: {},
-                        create: listingData.hobbyIds.map((hobbyId) => ({
+                        create: hobbyIds.map((hobbyId) => ({
                             hobbyId,
                         })),
                     },
@@ -133,6 +133,7 @@ export async function updateListing(id: number, listingData: {
         throw error;
     }
 }
+
 
 // Delete a listing
 export async function deleteListing(id: number) {

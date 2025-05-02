@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@clerk/nextjs';
+import { useAuth, useUser } from '@clerk/nextjs';
 import { prisma } from '@/utils/prisma/client';
 
 interface Hobby {
@@ -29,7 +29,8 @@ interface OnboardingFormData {
 
 export default function OnboardingPage() {
     const router = useRouter();
-    const { userId, user } = useAuth();
+    const { userId } = useAuth();
+    const { user } = useUser();
     const [step, setStep] = useState(1);
     const [hobbies, setHobbies] = useState<Hobby[]>([]);
     const [formData, setFormData] = useState<OnboardingFormData>({
