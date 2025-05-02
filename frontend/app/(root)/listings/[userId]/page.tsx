@@ -1,12 +1,16 @@
+import { getUserListings } from "@/app/actions/listings/listingActions";
+import { auth } from "@clerk/nextjs/server";
+import UserListingsClient from "./UserListingsClient";
 
-const Page = () => {
+export default async function UserListingsPage({ params }: { params: { userId: string } }) {
+    const { userId: currentUserId } = await auth();
+    const listings = await getUserListings(params.userId);
+    const isOwnProfile = currentUserId === params.userId;
 
     return (
-        <div>
-            <h1 className=''> We are at User&apos;s Listings Page</h1>
-
-        </div>
-    )
+        <UserListingsClient
+            listings={listings}
+            isOwnProfile={isOwnProfile}
+        />
+    );
 }
-
-export default Page;

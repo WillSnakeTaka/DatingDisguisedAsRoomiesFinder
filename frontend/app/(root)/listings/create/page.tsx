@@ -18,7 +18,6 @@ const testListing = {
 const CreatePage = () => {
     return (
         <div>
-            <div>Create Listing Page</div>
             <CreateListingForm />
         </div>
     )

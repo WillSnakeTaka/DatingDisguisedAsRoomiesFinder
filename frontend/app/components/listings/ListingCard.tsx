@@ -25,12 +25,12 @@ interface ListingCardProps {
             };
         }[];
     };
+    isOwner?: boolean;
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
+const ListingCard: React.FC<ListingCardProps> = ({ listing, isOwner = false }) => {
     const router = useRouter();
     const { userId } = useAuth();
-    const isOwner = userId === listing.creator_clerkId;
     const [isDeleting, setIsDeleting] = React.useState(false);
 
     const handleDelete = async () => {
@@ -48,8 +48,8 @@ const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
     };
 
     return (
-        <Link href={`/listings/${listing.id}`}>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <Link href={`/listings/${listing.id}`}>
                 <div className="relative h-48 w-full">
                     {listing.image_url ? (
                         <img
@@ -70,51 +70,39 @@ const ListingCard: React.FC<ListingCardProps> = ({ listing }) => {
                 </div>
 
                 <div className="p-4">
-                    <div className="flex justify-between items-start mb-2">
-                        <h2 className="text-xl font-semibold">{listing.title}</h2>
-                        <span className="text-lg font-bold">${listing.price}/mo</span>
-                    </div>
-
+                    <h2 className="text-xl font-semibold mb-2">{listing.title}</h2>
+                    <p className="text-gray-600 mb-2">{listing.description}</p>
+                    <p className="text-lg font-bold text-blue-600">${listing.price / 100} / mo</p>
                     {listing.location && (
-                        <p className="text-gray-600 mb-2">{listing.location}</p>
+                        <p className="text-sm text-gray-500 mt-2">{listing.location}</p>
                     )}
-                    <p className="text-gray-700 mb-4 line-clamp-2">{listing.description}</p>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                        {listing.ListingHobby.map(({ hobby }) => (
-                            <span
-                                key={hobby.id}
-                                className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
-                            >
-                                {hobby.name}
-                            </span>
-                        ))}
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                        <span className="text-blue-600 font-medium">View Details</span>
-                        {isOwner && (
-                            <div className="flex gap-2">
-                                <Link
-                                    href={`/listings/${listing.id}/edit`}
-                                    className="text-gray-600 hover:text-gray-800"
-                                    onClick={(e) => e.stopPropagation()}
+                    {listing.ListingHobby.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-2">
+                            {listing.ListingHobby.map(({ hobby }) => (
+                                <span
+                                    key={hobby.id}
+                                    className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs"
                                 >
-                                    Edit
-                                </Link>
-                                <button
-                                    onClick={handleDelete}
-                                    disabled={isDeleting}
-                                    className="text-red-600 hover:text-red-800 font-medium disabled:opacity-50"
-                                >
-                                    {isDeleting ? "Deleting..." : "Delete"}
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                                    {hobby.name}
+                                </span>
+                            ))}
+                        </div>
+                    )}
                 </div>
-            </div>
-        </Link>
+            </Link>
+
+            {isOwner && (
+                <div className="p-4 border-t">
+                    <button
+                        onClick={handleDelete}
+                        disabled={isDeleting}
+                        className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 disabled:bg-red-300"
+                    >
+                        {isDeleting ? 'Deleting...' : 'Delete Listing'}
+                    </button>
+                </div>
+            )}
+        </div>
     );
 };
 

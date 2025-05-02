@@ -146,4 +146,30 @@ export async function deleteListing(id: number) {
         console.error("Error deleting listing:", error);
         throw error;
     }
+}
+
+// Get listings for a specific user
+export async function getUserListings(clerkId: string) {
+    try {
+        const listings = await prisma.listing.findMany({
+            where: {
+                creator_clerkId: clerkId
+            },
+            include: {
+                ListingHobby: {
+                    include: {
+                        hobby: true,
+                    },
+                },
+                user: true,
+            },
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
+        return listings;
+    } catch (error) {
+        console.error("Error fetching user listings:", error);
+        throw error;
+    }
 } 
