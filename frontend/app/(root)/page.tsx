@@ -5,8 +5,9 @@ import Footer from "../components/Footer";
 export default async function HomePage({
   searchParams,
 }: {
-  searchParams: { query?: string };
+  searchParams: Promise<{ query?: string }>;
 }) {
+  const params = await searchParams;
   return (
     <div className="flex flex-col min-h-screen">
       <Hero imageUrl="/property2.jpg" imageAlt="property" heading="Find your ideal roommate" />
