@@ -1,14 +1,16 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-export default clerkMiddleware((auth, req) => {
+export default clerkMiddleware(async (auth, req) => {
+    const { userId } = await auth();
+
     // Handle users who aren't authenticated
-    if (!auth.sessionId && !isPublicRoute(req)) {
+    if (!userId && !isPublicRoute(req)) {
         return;
     }
 
     // Handle users who are authenticated
-    if (auth.sessionId) {
+    if (userId) {
         // If the user is signing up and going to the home page, redirect to onboarding
         if (req.nextUrl.pathname === "/" && req.nextUrl.searchParams.get("sign-up") === "true") {
             return NextResponse.redirect(new URL("/onboard", req.url));
