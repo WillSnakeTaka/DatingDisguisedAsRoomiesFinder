@@ -2,18 +2,15 @@ import { auth } from "@clerk/nextjs/server";
 
 // Define the shape of the PageProps
 interface PageProps {
-    params: Promise<{
+    params: {
         id: string; // The `id` param from the dynamic URL
-    }>;
-    _searchParams: Promise<{ [key: string]: string | string[] | undefined }>; // The query parameters
+    };
+    searchParams: { [key: string]: string | string[] | undefined }; // The query parameters
 }
 
-export default async function UserPage({ params, _searchParams }: PageProps) {
-    // Await the params to get the id
-    const { id: profileId } = await params;
-
-    // Await searchParams if needed
-    // const searchParamsData = await searchParams;
+export default async function UserPage({ params, searchParams }: PageProps) {
+    // Get the id directly from params
+    const { id: profileId } = params;
 
     // Await to get the current logged-in user's ID from Clerk
     const { userId } = await auth();
