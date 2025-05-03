@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Hobby, User, UserHobby } from "@prisma/client";
 import Image from 'next/image';
+import { useUser } from "@clerk/nextjs";
 
 interface ProfileClientProps {
     user: User & {
@@ -15,6 +16,9 @@ interface ProfileClientProps {
 }
 
 export default function ProfileClient({ user, isOwnProfile }: ProfileClientProps) {
+    const { user: clerkUser } = useUser();
+    const profileImageUrl = isOwnProfile ? clerkUser?.imageUrl : `https://api.clerk.com/v1/users/${user.clerkId}/profile_image`;
+
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="max-w-2xl mx-auto">
@@ -22,7 +26,7 @@ export default function ProfileClient({ user, isOwnProfile }: ProfileClientProps
                     <div className="flex items-center space-x-4 mb-6">
                         <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
                             <Image
-                                src="/default-avatar.png"
+                                src={profileImageUrl || "/default-avatar.png"}
                                 alt={`${user.firstName}'s profile`}
                                 width={96}
                                 height={96}

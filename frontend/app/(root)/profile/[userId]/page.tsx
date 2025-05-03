@@ -3,14 +3,14 @@ import { prisma } from "@/utils/prisma/client";
 import ProfileClient from "./ProfileClient";
 
 interface Props {
-    params: {
+    params: Promise<{
         userId: string;
-    };
+    }>;
 }
 
 export default async function ProfilePage({ params }: Props) {
     const { userId: currentUserId } = await auth();
-    const userId = params.userId;
+    const { userId } = await params;
     const isOwnProfile = currentUserId === userId;
 
     // Fetch user data
