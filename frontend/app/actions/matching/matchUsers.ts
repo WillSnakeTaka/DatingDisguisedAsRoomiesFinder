@@ -21,7 +21,7 @@ export async function matchListingsForUser(clerkId: string) {
     }
 
     const userHobbyIds = user.UserHobby.map((uh) => uh.hobbyId);
-    const { min_budget, max_budget, location } = user;
+    const { min_budget: _min_budget, max_budget: _max_budget, location: _location } = user;
 
     // Step 2: Find listings that share hobbies
     const listings = await prisma.listing.findMany({

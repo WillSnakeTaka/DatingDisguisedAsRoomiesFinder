@@ -4,9 +4,9 @@ import Footer from "../components/Footer";
 
 
 export default async function HomePage({
-  searchParams,
+  _searchParams,
 }: {
-  searchParams: Promise<{ query?: string }>;
+  _searchParams: Promise<{ query?: string }>;
 }) {
   return (
     <div className="flex flex-col min-h-screen">

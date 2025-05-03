@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { addHobbiesToUser, removeHobbyFromUser, getUserHobbies } from '@/app/actions/users/hobbies'
 import { Hobby } from '@prisma/client'
@@ -13,13 +13,7 @@ export function UserHobbies() {
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState<string | null>(null)
 
-    useEffect(() => {
-        if (user) {
-            loadHobbies()
-        }
-    }, [user])
-
-    const loadHobbies = async () => {
+    const loadHobbies = useCallback(async () => {
         try {
             setLoading(true)
             setError(null)
@@ -45,7 +39,13 @@ export function UserHobbies() {
         } finally {
             setLoading(false)
         }
-    }
+    }, [user]);
+
+    useEffect(() => {
+        if (user) {
+            loadHobbies();
+        }
+    }, [user, loadHobbies]);
 
     const handleAddHobbies = async (hobbyIds: number[]) => {
         if (!user) return

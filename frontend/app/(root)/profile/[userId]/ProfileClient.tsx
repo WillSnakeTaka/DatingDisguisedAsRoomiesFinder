@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Hobby, User, UserHobby } from "@prisma/client";
+import Image from 'next/image';
 
 interface ProfileClientProps {
     user: User & {
@@ -20,17 +21,13 @@ export default function ProfileClient({ user, isOwnProfile }: ProfileClientProps
                 <div className="bg-white rounded-lg shadow-md p-6">
                     <div className="flex items-center space-x-4 mb-6">
                         <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
-                            {user.imageUrl ? (
-                                <img
-                                    src={user.imageUrl}
-                                    alt={user.firstName || "Profile"}
-                                    className="w-full h-full rounded-full object-cover"
-                                />
-                            ) : (
-                                <span className="text-4xl text-gray-400">
-                                    {(user.firstName?.[0] || "U").toUpperCase()}
-                                </span>
-                            )}
+                            <Image
+                                src="/default-avatar.png"
+                                alt={`${user.firstName}'s profile`}
+                                width={96}
+                                height={96}
+                                className="rounded-full"
+                            />
                         </div>
                         <div>
                             <h1 className="text-2xl font-bold">

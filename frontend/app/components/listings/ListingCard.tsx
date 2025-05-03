@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { deleteListing } from "@/app/actions/listings/listingActions";
 import { useAuth } from '@clerk/nextjs';
+import Image from "next/image";
 
 interface ListingCardProps {
     listing: {
@@ -52,10 +53,12 @@ const ListingCard: React.FC<ListingCardProps> = ({ listing, isOwner = false }) =
             <Link href={`/listings/${listing.id}`}>
                 <div className="relative h-48 w-full">
                     {listing.image_url ? (
-                        <img
+                        <Image
                             src={listing.image_url}
                             alt={listing.title}
-                            className="w-full h-full object-cover"
+                            width={500}
+                            height={300}
+                            className="w-full h-48 object-cover rounded-t-lg"
                         />
                     ) : (
                         <div className="w-full h-full bg-gray-200 flex items-center justify-center">

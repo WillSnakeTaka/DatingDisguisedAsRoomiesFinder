@@ -1,35 +1,41 @@
 import { prisma } from "@/utils/prisma/client";
+import { CreateListingFormData } from './listings';
 
-// Assuming you have hobby IDs that you want to associate with the listing
-export async function postListing(listingData: any) {
-    const { title, description, price, image_url, location, category, is_active, is_featured, clerkId, hobbyIds } = listingData;
+export async function postListing(data: CreateListingFormData) {
+    const { title, description, price, image_url, location, category, creator_clerkId, hobbies } = data;
 
     try {
-        // Create the listing first
-        const newListing = await prisma.listing.create({
+        const listing = await prisma.listing.create({
             data: {
                 title,
                 description,
                 price,
-                image_url,
-                location,
-                category,
-                is_active,
-                is_featured,
-                creator_clerkId: clerkId,
-                // Create relationships for hobbies
+                image_url: image_url || null,
+                location: location || null,
+                category: category || null,
+                is_active: true,
+                is_featured: false,
+                creator_clerkId,
                 ListingHobby: {
-                    create: hobbyIds.map((hobbyId: number) => ({
-                        hobbyId,
-                    })),
-                },
+                    create: (hobbies || []).map(hobbyId => ({
+                        hobby: {
+                            connect: { id: hobbyId }
+                        }
+                    }))
+                }
             },
+            include: {
+                ListingHobby: {
+                    include: {
+                        hobby: true
+                    }
+                }
+            }
         });
 
-        console.log("New listing created:", newListing);
-        return newListing;
+        return { success: true, listing };
     } catch (error) {
-        console.error("Error creating listing:", error);
-        throw error;
+        console.error('Error creating listing:', error);
+        return { success: false, error: 'Failed to create listing' };
     }
 }

@@ -36,7 +36,7 @@ export default function MatchClient({ currentUser, matches }: MatchClientProps) 
                 <div className="text-center">
                     <h1 className="text-2xl font-bold mb-4">No Matches Found</h1>
                     <p className="text-gray-600 mb-4">
-                        We couldn't find any potential roommates that match your preferences.
+                        We couldn&apos;t find any potential roommates that match your preferences.
                     </p>
                     <Link
                         href="/profile/hobbies"
