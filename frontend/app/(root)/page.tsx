@@ -2,11 +2,10 @@ import Hero from "../components/homePage/Hero";
 import About from "../components/About";
 import Footer from "../components/Footer";
 
-
 export default async function HomePage({
-  _searchParams,
+  searchParams,
 }: {
-  _searchParams: Promise<{ query?: string }>;
+  searchParams: { query?: string };
 }) {
   return (
     <div className="flex flex-col min-h-screen">
