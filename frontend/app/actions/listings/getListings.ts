@@ -21,7 +21,11 @@ export async function getListings(): Promise<Listing[]> {
             return [];
         }
 
-        return listing;
+        return listing.map(item => ({
+            ...item,
+            interestPool: [], // Default or fetched value for interestPool
+            clerkId: item.creator_clerkId, // Map creator_clerkId to clerkId
+        }));
 
     } catch (error) {
         console.error('Error fetching listings:', error);

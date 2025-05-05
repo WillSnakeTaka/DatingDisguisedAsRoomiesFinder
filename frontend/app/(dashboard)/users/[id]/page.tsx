@@ -12,9 +12,6 @@ export default async function UserPage({ params, searchParams }: PageProps) {
     // Await the params to get the id
     const { id: profileId } = await params;
 
-    // Await searchParams if needed
-    // const searchParamsData = await searchParams;
-
     // Await to get the current logged-in user's ID from Clerk
     const { userId } = await auth();
 

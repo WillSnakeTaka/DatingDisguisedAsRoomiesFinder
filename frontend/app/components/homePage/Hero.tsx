@@ -28,7 +28,6 @@ const Hero = (props: HeroProps) => {
                 </div>
             </div>
 
-
         </section>
     );
 };
