@@ -2,8 +2,22 @@
 // Singleton Prisma Client instance
 import { PrismaClient } from "@prisma/client";
 
-// Single instance of Prisma Client for reuse
-const prisma = new PrismaClient();
+const globalForPrisma = globalThis as unknown as {
+    prisma: PrismaClient | undefined;
+};
+
+const prisma = globalForPrisma.prisma ?? new PrismaClient({
+    log: ['query', 'error', 'warn'],
+    datasources: {
+        db: {
+            url: process.env.DATABASE_URL,
+        },
+    },
+});
+
+if (process.env.NODE_ENV !== "production") {
+    globalForPrisma.prisma = prisma;
+}
 
 // Export the instance
 export { prisma };

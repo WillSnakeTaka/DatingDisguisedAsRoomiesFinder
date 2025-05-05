@@ -89,7 +89,7 @@ export default function ListingsPage() {
                 <h1 className="text-3xl font-bold text-gray-800">Available Listings</h1>
                 <button
                     onClick={() => router.push("/listings/create")}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300 cursor-pointer"
                 >
                     Create New Listing
                 </button>
