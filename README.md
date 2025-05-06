@@ -1,3 +1,53 @@
+# Main Project Roomie (professional version): 
+Thanks Allan for the deployment (see repo for more details)
+Deployed here 👉 [Roo-Me Live App](https://roo-me-nine.vercel.app/)
+
+# 🐰 Roo-Me: The All-You-Can-Eat Roomie Hunter
+A testing app to integrate teammates' other project ideas, and data entries.
+**Roo-Me** is a chaotic, causual, and fun take on roommate matching—designed by a dream team of tinkerers, designers, and low-key trolls. Think: Tinder meets Tarot, with a sprinkle of semi-working AI magic and a bunny filter.
+
+> 🙌 “Thanks God it finally worked!”  
+> — [Will Taka on LinkedIn](https://www.linkedin.com/posts/willtaka_thanks-god-it-finally-worked-last-activity-7325425581695590401-0GHR)
+
+---
+
+## 🌟 What It Does
+
+An experimental multi-feature app pulling ideas from across the team:
+
+### 🧠 Core Features
+
+1. **🐇🐈 AI Face Reading + Cat/Bunny Filter**
+   - Webcam input + cat/bunny face filter.
+   - Simulated AI face-reading (recycled from an AI tarot app).
+   - Originally aimed for cartoon webcam output using MediaPipe (didn't work 😞).
+
+2. **🔥 Tinder-style Matching System**
+   - Swipeable profiles from a 100+ user database (names & ages only for privacy).
+   - Match algorithm returns your top 3 based on input.
+   - Dynamic updates via “Yes/No” swipe logic.
+
+3. **🎬 Movie Recommendations**
+   - Suggests roommate-matching films.
+   - Potential Tableau integration in the future.
+
+4. **🤖 Hugging Face ChatBot**
+   - Integrated chat using Hugging Face models.
+   - Some bots work, some... don’t. 🤡
+
+5. **🔮 AI Tarot Card Fortune Teller**
+   - Fortune telling with a limited tarot deck.
+   - Gives fake-real vibes. You’ll get over it.
+
+---
+### 💡 Built from multiple teammate ideas:
+- Responsive web design
+- Database viz
+- Film suggestions
+- Diagram tools
+
+---
+
 # DatingDisguisedAsRoomiesFinder
  Deep Fake Roommates matching app for ex-craigslist-goers 
  # Dating app Disguised As Roomies Finder
