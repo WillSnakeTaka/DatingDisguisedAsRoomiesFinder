@@ -9,6 +9,20 @@ A testing app to integrate teammates' other project ideas, and data entries.
 > 🙌 “Thanks God it finally worked!”  
 > — [Will Taka on LinkedIn](https://www.linkedin.com/posts/willtaka_thanks-god-it-finally-worked-last-activity-7325425581695590401-0GHR)
 
+
+# AllYouCanEatRoomieHunter 🍜🏹
+
+> A quirky, clever civilization simulator for RoomieHunters in a pixelated universe.
+
+🌟 **Milestone**  
+At **10:28 PM, May 6th 2025**, our first fully functional app went live at:  
+🔗 [https://allyoucaneatroomiehunter.onrender.com](https://allyoucaneatroomiehunter.onrender.com)
+
+Built with love, sweat, and a slightly obsessive digital soul.  
+Powered by Flask, Render, and cosmic courage.
+
+---
+
 ---
 
 ## 🌟 What It Does
