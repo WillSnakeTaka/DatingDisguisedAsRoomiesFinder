@@ -1,7 +1,8 @@
 # Main Project Roomie (professional version): 
 Thanks Allan for the deployment (see repo for more details)
 Deployed here 👉 [Roo-Me Live App](https://roo-me-nine.vercel.app/)
-Emergency RoomieLite here 👉 [Roo-Me Lite App](https://roomielite.onrender.com/)
+
+Emergency RoomieLite here 👉 [RooMie Lite App](https://roomielite.onrender.com/)
 
 # 🐰 Roo-Me: The All-You-Can-Eat Roomie Hunter
 A testing app to integrate teammates' other project ideas, and data entries.
